@@ -1,13 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+
+import CountriesList from "../components/CountriesList.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'Countries List',
+      component: CountriesList,
     },
     {
       path: '/about',
@@ -20,4 +21,4 @@ const router = createRouter({
   ]
 })
 
-export default router
+export default router;

@@ -1,15 +1,15 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+
+import NavBar from "./components/NavBar.vue"
 import CountriesList from './components/CountriesList.vue'
 import CountryDetails from './components/CountryDetails.vue'
-
+ 
 </script>
 
-<template>
-
+<template> 
+<div class="app">
+    <NavBar/>
+</div>
 </template>
 
-<style scoped>
 
-</style>
