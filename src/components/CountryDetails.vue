@@ -1,5 +1,5 @@
 <template>
-<div v-if="countryInfo">
+  <div v-if="countryInfo">
     <img
       :src="`https://flagcdn.com/w320/${countryInfo.alpha2Code.toLowerCase()}.png`"
       alt=""
@@ -9,12 +9,10 @@
     <ul class="list-group list-group-flush">
       <li
         class="list-group-item d-flex justify-content-between align-items-center"
-      > 
+      >
         <p class="fw-bold">Capital</p>
 
-        <p v-if="countryInfo.capital.length === 0">
-          Country without a capital
-        </p>
+        <p v-if="countryInfo.capital.length === 0">Country without a capital</p>
         <p v-else>{{ countryInfo.capital[0] }}</p>
       </li>
       <li
@@ -27,7 +25,6 @@
         <p class="fw-bold">Borders:</p>
         <p v-if="countryInfo.borders.length === 0">
           This country has no borders <br />
-          
         </p>
         <RouterLink
           v-else
@@ -42,72 +39,44 @@
   </div>
 </template>
 
-
 <script setup>
-    import {useRoute} from "vue-router";
-    import {watch, ref, onMounted, computed} from 'vue';
+import { useRoute } from "vue-router";
+import { watch, ref, onMounted, computed } from "vue";
 
+const countryInfo = ref(null);
 
-const countryInfo=ref(null);
-
-
-const name=ref();
-const borders=ref();
-const capital=ref();
-const alpha3Code=ref();
-const alpha2Code=ref();  
-const area=ref();
-
-const route=useRoute();
+const route = useRoute();
 
 const getCountryByAlphaCode = async () => {
+  const alpha3Code = route.params.alpha3Code;
 
-    const alpha3Code= route.params.alpha3Code;
-    
-    const response= await fetch(
-        `https://ih-countries-api.herokuapp.com/countries/${alpha3Code}
-`);
+  const response = await fetch(
+    `https://ih-countries-api.herokuapp.com/countries/${alpha3Code}
+`
+  );
 
-const finalResponse = await response.json();
+  const finalResponse = await response.json();
 
+  countryInfo.value = finalResponse;
 
-
-const name= finalResponse.name.common;
-const capital= finalResponse.capital[0];
-const area= finalResponse.area;
-const borders= finalResponse.borders;
-const alpha2Code= finalResponse.alpha2Code;
-
-
-countryInfo.value=finalResponse;
-
-return{name,capital,borders,area,alpha2Code,alpha3Code,countryInfo};
+  // return{name,capital,borders,area,alpha2Code,alpha3Code,countryInfo};
 };
 
 //Usamos onMounted() hook para ejecutar la función getCountryByAlphaCode antes de que
 //se renderice el componente como tal para obtener informacion de la API y poder plasmarla dentro de la UI
-onMounted(()=>{
-    getCountryByAlphaCode();
+onMounted(() => {
+  getCountryByAlphaCode();
 });
 
-
-const countryCode= computed(() => {
-    return route.params.alpha3Code;
-
-
-
-    watch(countryCode,(newCountryCode)=>{
-        getCountryByAlphaCode();
-    })
+const countryCode = computed(() => {
+  console.log(route.params);
+  console.log(route.params.alpha3Code);
+  return route.params.alpha3Code;
 });
 
-
-
+watch(countryCode, (newCountryCode) => {
+  getCountryByAlphaCode();
+});
 </script>
-    
 
-    
-<style >
-
-</style>
-    
+<style></style>

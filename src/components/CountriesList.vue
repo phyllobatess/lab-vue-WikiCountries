@@ -37,7 +37,7 @@
 import { ref } from "vue";
 import CountryDetails from "./CountryDetails.vue";
 import Spinner from "./Spinner.vue"
-//data para comprobar dinamicamente si tenemos algun datos del api y darle visibilidad en la U I
+//data para comprobar dinamicamente si tenemos algun datos del api y darle visibilidad en la UI
 const countries = ref(null);
 
 const fetchCountries = async () => {
